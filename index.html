@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ember Mailbox</title>
+	<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+<script type="text/x-handlebars">
+	<div id="mailbox-example" class="container">
+
+		<header>
+			<h1>Ember Mailbox</h1>
+		</header>
+
+		<main class="row">
+			<aside class="col-md-2">
+				<ul>
+					<li><h2>Mailboxes</h2></li>
+					{{#each}}
+						<li>
+							{{#link-to "mailbox" this currentWhen="mailbox"}}
+							<span class="count">{{messages.length}}</span>
+							{{name}}
+							{{/link-to}}
+						</li>
+					{{/each}}
+				</ul>
+			</aside>
+			<section class="main col-md-10">
+				{{outlet}}
+			</section>
+		</main>
+
+	</div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="index">
+	<div class="index">
+		<h2>Select a Mailbox</h2>
+</script>
+
+<script type="text/x-handlebars" data-template-name="mailbox">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>Date</td>
+				<th>Subject</th>
+				<th>From</th>
+				<th>To</th>
+			<tr>
+		</thead>
+		<tbody>
+			{{#each messages}}
+				{{#link-to "mail" this tagName="tr"}}
+					<td>{{date date}}</td>
+					<td>{{view.isAction}}{{subject}}</td>
+					<td>{{from}}</td>
+					<td>{{to}}</td>
+				{{/link-to}}
+			{{/each}}
+		</tbody>
+	</table>
+
+	{{outlet}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="mail">
+	<div class="mail">
+		<dl>
+			<dt>From</dt>
+			<dd>{{from}}</dd>
+			<dt>To</dt>
+			<dd>{{to}}</dd>
+			<dt>Date</dt>
+			<dd>{{date date}}</dd>
+		</dl>
+		<h4>{{subject}}</h4>
+		<p>{{body}}</p>
+	</div>
+</script>
+
+<script type="text/javascript" src="assets/js/jquery-1.10.2.js"></script>
+<script type="text/javascript" src="assets/js/handlebars-1.1.2.js"></script>
+<script type="text/javascript" src="assets/js/ember-1.5.1.js"></script>
+<script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="models/mailbox.js"></script>
+<script type="text/javascript" src="fixtures.js"></script>
+<script type="text/javascript" src="routes.js"></script>
+</body>
+</html>
